@@ -5,7 +5,7 @@ const objectId = require("mongodb").ObjectID;
 const app = express();
 const jsonParser = express.json();
  
-const mongoClient = new MongoClient('mongodb+srv://snezhka_18:***@cluster0.kpnu9.mongodb.net/lab3?retryWrites=true&w=majority', 
+const mongoClient = new MongoClient('mongodb+srv://snezhka_18:snezhka@cluster0.kpnu9.mongodb.net/lab3?retryWrites=true&w=majority', 
   { useUnifiedTopology: true });
  
 let dbClient;
@@ -43,8 +43,8 @@ app.post("/api/users", jsonParser, function (req, res) {
   if(!req.body) return res.sendStatus(400);
 
   const userName = req.body.name;
-  const userAge = req.body.age;
-  const user = {name: userName, age: userAge};
+  const averageRating = req.body.average_rating;
+  const user = {name: userName, average_rating: averageRating};
 
   const collection = req.app.locals.collection;
   collection.insertOne(user, function(err, result){
@@ -70,9 +70,9 @@ app.put("/api/users", jsonParser, function(req, res){
 
   const id = new objectId(req.body.id);
   const userName = req.body.name;
-  const userAge = req.body.age;
+  const averageRating = req.body.average_rating;
   const collection = req.app.locals.collection;
-  collection.findOneAndUpdate({_id: id}, { $set: {age: userAge, name: userName}},
+  collection.findOneAndUpdate({_id: id}, { $set: {average_rating: averageRating, name: userName}},
       {returnOriginal: false },function(err, result){
             
     if(err) return console.log(err);     
