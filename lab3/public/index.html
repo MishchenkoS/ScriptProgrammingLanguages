@@ -15,8 +15,8 @@
             <input class="form-control" name="name" />
         </div>
         <div class="form-group">
-            <label for="age">Середній бал сесії:</label>
-            <input class="form-control" name="age" />
+            <label for="average_rating">Середній бал сесії:</label>
+            <input class="form-control" name="average_rating" />
         </div>
         <div class="panel-body">
             <button type="submit" class="btn btn-sm btn-primary">Зберегти</button>
@@ -59,18 +59,18 @@
                 const form = document.forms["userForm"];
                 form.elements["id"].value = user._id;
                 form.elements["name"].value = user.name;
-                form.elements["age"].value = user.age;
+                form.elements["average_rating"].value = user.average_rating;
             }
         }
         // Добавление пользователя
-        async function CreateUser(userName, userAge) {
+        async function CreateUser(userName, averageRating) {
   
             const response = await fetch("api/users", {
                 method: "POST",
                 headers: { "Accept": "application/json", "Content-Type": "application/json" },
                 body: JSON.stringify({
                     name: userName,
-                    age: parseInt(userAge, 10)
+                    average_rating: parseInt(averageRating, 10)
                 })
             });
             if (response.ok === true) {
@@ -80,14 +80,14 @@
             }
         }
         // Изменение пользователя
-        async function EditUser(userId, userName, userAge) {
+        async function EditUser(userId, userName, averageRating) {
             const response = await fetch("api/users", {
                 method: "PUT",
                 headers: { "Accept": "application/json", "Content-Type": "application/json" },
                 body: JSON.stringify({
                     id: userId,
                     name: userName,
-                    age: parseInt(userAge, 10)
+                    average_rating: parseInt(averageRating, 10)
                 })
             });
             if (response.ok === true) {
@@ -128,9 +128,9 @@
             nameTd.append(user.name);
             tr.append(nameTd);
   
-            const ageTd = document.createElement("td");
-            ageTd.append(user.age);
-            tr.append(ageTd);
+            const averageRatingTd = document.createElement("td");
+            averageRatingTd.append(user.average_rating);
+            tr.append(averageRatingTd);
               
             const linksTd = document.createElement("td");
   
@@ -173,11 +173,11 @@
             const form = document.forms["userForm"];
             const id = form.elements["id"].value;
             const name = form.elements["name"].value;
-            const age = form.elements["age"].value;
+            const averageRating = form.elements["average_rating"].value;
             if (id == 0)
-                CreateUser(name, age);
+                CreateUser(name, averageRating);
             else
-                EditUser(id, name, age);
+                EditUser(id, name, averageRating);
         });
   
         // загрузка пользователей
